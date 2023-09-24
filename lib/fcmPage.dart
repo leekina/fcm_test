@@ -22,30 +22,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      var androidNotiDetails = AndroidNotificationDetails(
-        channel.id,
-        channel.name,
-        channelDescription: channel.description,
-      );
-      var iOSNotiDetails = const DarwinNotificationDetails();
-      var details =
-          NotificationDetails(android: androidNotiDetails, iOS: iOSNotiDetails);
-      if (notification != null) {
-        flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          details,
-        );
-      }
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      print(message);
-    });
     getToken();
     super.initState();
   }
